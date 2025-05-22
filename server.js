@@ -6,6 +6,8 @@ import mongoose from "mongoose";
 // Import routes
 import authRoutes from "./routes/auth.js";
 import taskRoutes from "./routes/tasks.js";
+import projectRoutes from "./routes/projects.js";
+import hourRoutes from "./routes/hours.js";
 
 // Load environment variables
 dotenv.config();
@@ -42,14 +44,22 @@ app.get("/", (req, res) => {
   console.log("🏠 Health check requested");
   res.json({ 
     message: "TaskFlow API is running ✅",
-    version: "1.0.0",
+    version: "2.0.0",
     express: "4.x",
     port: PORT,
     timestamp: new Date().toISOString(),
+    features: [
+      "User Authentication",
+      "Task Management", 
+      "Project Management",
+      "Time Tracking"
+    ],
     endpoints: {
       health: "GET /",
       auth: "/api/auth/*",
-      tasks: "/api/tasks/*"
+      tasks: "/api/tasks/*",
+      projects: "/api/projects/*",
+      hours: "/api/hours/*"
     }
   });
 });
@@ -57,6 +67,8 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
+app.use("/api/projects", projectRoutes);
+app.use("/api/hours", hourRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {
@@ -74,7 +86,20 @@ app.use('*', (req, res) => {
       'GET /api/tasks/:id',
       'PUT /api/tasks/:id',
       'DELETE /api/tasks/:id',
-      'GET /api/tasks/stats'
+      'GET /api/tasks/stats',
+      'GET /api/projects',
+      'POST /api/projects',
+      'GET /api/projects/:id',
+      'PUT /api/projects/:id',
+      'DELETE /api/projects/:id',
+      'GET /api/projects/:id/stats',
+      'POST /api/projects/:id/hours',
+      'GET /api/projects/:id/hours',
+      'GET /api/hours',
+      'GET /api/hours/stats',
+      'GET /api/hours/:id',
+      'PUT /api/hours/:id',
+      'DELETE /api/hours/:id'
     ]
   });
 });
@@ -101,10 +126,13 @@ mongoose
       console.log("\n🎉 TASKFLOW SERVER READY!");
       console.log(`🚀 Server running on port ${PORT} with Express 4.x`);
       console.log(`🌐 Health check: http://localhost:${PORT}/`);
-      console.log(`📡 Available endpoints:`);
-      console.log(`   Auth: http://localhost:${PORT}/api/auth/*`);
-      console.log(`   Tasks: http://localhost:${PORT}/api/tasks/*`);
-      console.log("\n👁️  Ready for requests...\n");
+      console.log(`📡 Available API endpoints:`);
+      console.log(`   Auth:     http://localhost:${PORT}/api/auth/*`);
+      console.log(`   Tasks:    http://localhost:${PORT}/api/tasks/*`);
+      console.log(`   Projects: http://localhost:${PORT}/api/projects/*`);
+      console.log(`   Hours:    http://localhost:${PORT}/api/hours/*`);
+      console.log("\n⏱️  Time tracking system ready!");
+      console.log("👁️  Ready for requests...\n");
     });
   })
   .catch((err) => {
