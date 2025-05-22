@@ -30,7 +30,7 @@ const generateToken = (userId) => {
   }
   
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: "7d" // Token expires in 7 days
+    expiresIn: "7d"
   });
 };
 
@@ -115,8 +115,7 @@ export const register = async (req, res) => {
     
     res.status(500).json({ 
       success: false,
-      message: "Internal server error during registration",
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message: "Internal server error during registration"
     });
   }
 };
@@ -191,8 +190,7 @@ export const login = async (req, res) => {
     console.error("💥 Login error:", error);
     res.status(500).json({ 
       success: false,
-      message: "Internal server error during login",
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message: "Internal server error during login"
     });
   }
 };
