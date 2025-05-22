@@ -1,19 +1,25 @@
 {
   "name": "taskflow",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/Guts6667/taskflow.git",
   "author": "Guts6667 <76847062+Guts6667@users.noreply.github.com>",
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
   "dependencies": {
-    "bcrypt": "^6.0.0",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "express": "^5.1.0",
+    "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.16.0",
-    "mongoose": "^8.15.0",
+    "mongoose": "^8.15.0"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.10"
   }
 }
